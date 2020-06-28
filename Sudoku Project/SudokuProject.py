@@ -62,3 +62,8 @@ def reducePuzzle(values):
             check=reducePuzzle(valuesT)
             if check:
                 return check 
+            
+stringSudoku='8..........36......7..9.2...5...7.......457.....1...3...1....68..85...1..9....4..'
+sudoku=dictSudoku(boxes,stringSudoku)
+values=boxValues(sudoku)
+display(reduce_puzzle(values))

@@ -31,33 +31,34 @@ def display(values):
         if r in 'CF': print(line)
     return
 
-display(sudoku)
-
-display(values)
-
-
-
 def reduce_puzzle(values):
     stalled = False
     while not stalled:
-        # Check how many boxes have a determined value
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
-
-        # Your code here: Use the Eliminate Strategy
         sudoku=eliminate(values)
         sudoku=only_choice(sudoku)
-
-        # Your code here: Use the Only Choice Strategy
-
-        # Check how many boxes have a determined value, to compare
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
-        # If no new values were added, stop the loop.
         stalled = solved_values_before == solved_values_after
-        # Sanity check, return False if there is a box with zero available values:
         if len([box for box in values.keys() if len(values[box]) == 0]):
             return False
     return values
 
-
-
-display(reduce_puzzle(values))
+def reducePuzzle(values):
+    values=reduce_puzzle(values)
+    if values is False:
+        return False
+    length=0
+    for b in values.keys():
+        if(len(values[b])==1):
+            length+=1
+    if(length==81):
+        return values
+    else:
+        n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
+        temp1=values[s]
+        for one in temp1:
+            valuesT=values.copy()
+            valuesT[s]=one
+            check=reducePuzzle(valuesT)
+            if check:
+                return check 
